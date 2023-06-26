@@ -1,0 +1,11 @@
+[Interface]
+PrivateKey = {{ inputs.priv_key }}
+# PublicKey is:  {{ inputs.pub_key }}
+ListenPort = {{ inputs.listen_port }}
+Address = {{ inputs.address }}
+
+[Peer]
+Endpoint = {{ inputs.endpoint }}
+PublicKey = {{ inputs.peer_pubkey }}
+AllowedIPs = {{ inputs.allowedips }}
+PersistentKeepalive = 25
