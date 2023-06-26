@@ -1,0 +1,77 @@
+#!/usr/bin/env python3
+
+from sg_libs import *
+
+priv_key = False
+pub_key = False
+
+while True:
+    sg_common.print_header("MAIN MENU", "blue")
+
+    menu_gen_new_keys       = "Generate new wireguard private key / display new associated public key"
+    menu_use_existing_keys  = "Use existing wireguard private/public key pair"
+    menu_register           = "Register with Geeny"
+    menu_enter_config       = "Enter/save SecureGateway wireguard VPN configuration"
+    menu_activate           = "Activate SecureGateway wireguard VPN"
+    menu_display_status     = "Display wireguard status"
+    menu_display_config     = "Display wireguard configuration"
+    menu_test_endpoint      = "Test SecureGateway wireguard peer endpoint connectivity"
+    menu_test_other         = "Test SecureGateway wireguard connectivity to another IP"
+    menu_deactivate         = "Deactivate SecureGateway wireguard VPN"
+
+    print("    1: " + menu_gen_new_keys)
+    print("    2: " + menu_use_existing_keys)
+    print("    3: " + menu_register)
+    print("    4: " + menu_enter_config)
+    print("    5: " + menu_activate)
+    print("    6: " + menu_display_status)
+    print("    7: " + menu_display_config)
+    print("    8: " + menu_test_endpoint)
+    print("    9: " + menu_test_other)
+    print("   10: " + menu_deactivate)
+    print("")
+    print("    x: Exit")
+    print("")
+
+    user_input = input("Please make a selection: ")
+
+
+    match user_input:
+        case "1":
+            sg_common.print_header(menu_gen_new_keys, "blue")
+            priv_key, pub_key = keys.gen(priv_key, pub_key)
+        case "2":
+            sg_common.print_header(menu_use_existing_keys, "blue")
+            priv_key, pub_key = keys.get_input(priv_key, pub_key)
+        case "3":
+            sg_common.print_header(menu_register, "blue")
+            sg_common.register(pub_key)
+        case "4":
+            sg_common.print_header(menu_enter_config, "blue")
+            config.write_file(priv_key, pub_key)
+        case "5":
+            sg_common.print_header(menu_activate, "blue")
+            manage_wg.activate()
+        case "6":
+            sg_common.print_header(menu_display_status, "blue")
+            manage_wg.display_status()
+        case "7":
+            sg_common.print_header(menu_display_config, "blue")
+            config.print_file()
+        case "8":
+            sg_common.print_header(menu_test_endpoint, "blue")
+            test.endpoint_connectivity()
+        case "9":
+            sg_common.print_header(menu_test_other, "blue")
+            test.other()
+        case "10":
+            sg_common.print_header(menu_deactivate, "blue")
+            manage_wg.deactivate()
+        case "x":
+            import sys
+            sys.exit(0)
+        case "X":
+            import sys
+            sys.exit(0)
+        case _:
+            print("Invalid selection!")
