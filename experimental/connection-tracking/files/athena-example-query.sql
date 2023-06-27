@@ -17,7 +17,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS test_table_vpclogs (
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ' '
 STORED AS PARQUET
-LOCATION 's3://acme-co-devicelogs/device-flow-logs/'
+LOCATION 's3://BUCKET_NAME/device-flow-logs/'
 TBLPROPERTIES
 (
 "skip.header.line.count"="1",
